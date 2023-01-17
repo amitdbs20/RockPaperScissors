@@ -9,12 +9,6 @@ function getComputerChoice() {
     }
 }
 
-let playerSelectionCase = prompt("ROCK, PAPER, OR SCISSORS?");
-let playerSelection = playerSelectionCase.toUpperCase();
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection))
-
-
 function playRound(playerSelection, computerSelection) {
     if (playerSelection === computerSelection) {
         return "It's a draw"
@@ -27,3 +21,40 @@ function playRound(playerSelection, computerSelection) {
         return 'Error. Try again with "ROCK, PAPER, or SCISSORS"'
     }
 }
+
+function game() {
+    let markers = [];
+    for (let i = 0; i < 5; i++) {
+        const computerSelection = getComputerChoice();
+        let playerSelectionCase = prompt("ROCK, PAPER, OR SCISSORS?");
+        let playerSelection = playerSelectionCase.toUpperCase();
+        console.log(playRound(playerSelection, computerSelection));
+        markers[i] = playRound(playerSelection, computerSelection);
+    }
+    let winCount = 0;
+    for (let i =0; i <markers.length;i++) {
+        if (markers[i].includes("You Win!")) winCount++;
+    }
+    let loseCount = 0;
+    for (let i =0; i <markers.length;i++) {
+        if (markers[i].includes("You Lose!")) loseCount++;
+    }
+    let tieCount = 0;
+    for (let i =0; i <markers.length;i++) {
+        if (markers[i].includes("It's a draw")) tieCount++;
+    }
+    let errorCount = 0;
+    for (let i =0; i <markers.length;i++) {
+        if (markers[i].includes("Error")) errorCount++;
+    }
+    if (winCount>loseCount) {
+        console.log("Congratulations! You beat the Computer!");
+    } else if (loseCount>winCount) {
+        console.log("Sorry! You lost to the Computer!");
+    } else if (winCount=loseCount) {
+        console.log("Looks like you tied with the Computer");
+    }
+    else console.log("Error! Try again");
+}
+
+console.log(game())
